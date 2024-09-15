@@ -11,7 +11,7 @@ const scholarshipSchema = new mongoose.Schema({
   },
   deadline: {
     startDate: Date,
-    endDte: Date,
+    endDate: Date,
     required: true,
   },
   requireddocuments: [
@@ -37,7 +37,7 @@ const scholarshipSchema = new mongoose.Schema({
     },
     MinimumGPA: {
       type: Number,
-      requred: true,
+      required: true,
     },
     nationality: {
       type: String,
@@ -49,7 +49,7 @@ const scholarshipSchema = new mongoose.Schema({
       type: String,
       enum: ["General", "SC", "ST", "OBC", "Other"],
     },
-    othedetails: {
+    otherdetails: {
       type: String,
     },
   },
