@@ -8,6 +8,7 @@
     "build": "npm i --force"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -16,6 +17,7 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.4",
     "morgan": "~1.9.1",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "validator": "^13.12.0"
   }
 }
