@@ -13,7 +13,7 @@ app.use(cors({
 app.use(express.json({limit: "10kb"})); //data from body shall be added to req
 
 //to work with cookies
-app.use(cookieParser())
+app.use(cookieParser()) 
 
 //to print requests in log
 app.use(morgan("dev"));

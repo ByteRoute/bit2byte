@@ -1,0 +1,70 @@
+[
+    {
+      "title": "National Merit-Based Scholarship",
+      "description": "A scholarship for students demonstrating excellent academic performance and pursuing undergraduate or postgraduate studies.",
+      "deadline": {
+        "startDate": "2024-08-01T00:00:00Z",
+        "endDate": "2024-10-15T23:59:59Z"
+      },
+      "requireddocuments": [
+        {
+          "document": "pdf",
+          "documentSize": 1024,
+          "name": "Marksheet of last qualifying exam"
+        },
+        {
+          "document": "jpg",
+          "documentSize": 512,
+          "name": "Passport-size photograph"
+        },
+        {
+          "document": "pdf",
+          "documentSize": 2048,
+          "name": "Income certificate"
+        }
+      ],
+      "eligibility": {
+        "eligiblecourse": "Bachelors",
+        "MinimumGPA": 3.5,
+        "nationality": "Indian",
+        "state": "Maharashtra",
+        "category": "General",
+        "otherdetails": 
+        "No other government scholarships allowed."
+      }
+    },
+    {
+      "title": "SC/ST Postgraduate Scholarship",
+      "description": "Financial assistance for SC/ST students enrolled in postgraduate programs to support their higher education.",
+      "deadline": {
+        "startDate": "2024-09-01T00:00:00Z",
+        "endDate": "2024-11-30T23:59:59Z"
+      },
+      "requireddocuments": [
+        {
+          "document": "pdf",
+          "documentSize": 2048,
+          "name": "Caste certificate"
+        },
+        {
+          "document": "pdf",
+          "documentSize": 1024,
+          "name": "Previous semester marksheet"
+        },
+        {
+          "document": "docx",
+          "documentSize": 512,
+          "name": "Personal statement"
+        }
+      ],
+      "eligibility": {
+        "eligiblecourse": "Masters",
+        "MinimumGPA": 3.0,
+        "nationality": "Indian",
+        "state": "Uttar Pradesh",
+        "category": "SC",
+        "otherdetails": "Annual family income should be less than 2.5 lakhs."
+      }
+    }
+  ]
+  
