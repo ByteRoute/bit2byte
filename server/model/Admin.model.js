@@ -1,9 +1,18 @@
 const crypto = require("crypto");
 const mongoose = require("mongoose");
-const validator = require("validator"); //provides various schema validators
+const validator = require("validator"); 
 const bcryptjs = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
+/*
+    To do:
+        - Analytics
+        - on save 
+            - add the scholarship to the public list
+            - send mail to the goverment identity that it is now public
+
+*/
+
+const adminSchema = new mongoose.Schema({
     phone: {
         type: String, required: [true, "Phone number is must"], unique: true,
     }, email: {
@@ -20,6 +29,18 @@ const userSchema = new mongoose.Schema({
         type: Boolean, 
         default: false,
     },
+    approvedScholarshipIds:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship"
+        }
+    ],
+    pendingScholarshipIds:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship"
+        }
+    ],
      emailVerificationOtp: {
         type: String, 
         select: false,
@@ -39,47 +60,11 @@ const userSchema = new mongoose.Schema({
         },
     }, passwordChangedAt: {
         type: Date,
-    }, 
-    address: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    pincode: {
-        type: String,
-        required: true
-    },
-    aadharNumber: {
-        type: String, // You can use String to handle leading zeroes (if any)
-        required: true,
-        unique: true, // Ensures no duplicate Aadhar numbers
-        validate: {
-          validator: function(v) {
-            return /^\d{12}$/.test(v); // Regular expression to match exactly 12 digits
-          },
-          message: props => `${props.value} is not a valid Aadhar number!`
-        }
-      },
-    //   appliedScholarships: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "Scholarship",
-    //     }
-    //   ],
-    passwordResetToken: String, 
-    passwordResetExpires: Number,
-     active: Boolean
+    }
 });
 
 //before saving, encrypt the password and remove confirm password
-userSchema.pre("save", async function (next) {
+adminSchema.pre("save", async function (next) {
     // no need to do this every time, do only when password in modified
     if (!this.isModified("password")) return next();
     //encrypt the password
@@ -89,12 +74,12 @@ userSchema.pre("save", async function (next) {
 });
 
 //method to check the password
-userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
+adminSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
     return await bcryptjs.compare(candidatePassword, userPassword);
 };
 
 //returns true if token was created BEFORE change in password
-userSchema.methods.changePasswordAfter = function (JWTTimeStamp) {
+adminSchema.methods.changePasswordAfter = function (JWTTimeStamp) {
     if (this.passwordChangedAt) {
         const changedTimestamp = parseInt(`${this.passwordChangedAt.getTime() / 1000}`, 10);
         return JWTTimeStamp < changedTimestamp;
@@ -103,7 +88,7 @@ userSchema.methods.changePasswordAfter = function (JWTTimeStamp) {
 };
 
 //modify passwordChangedAt when password is changed
-userSchema.pre("save", function (next) {
+adminSchema.pre("save", function (next) {
     if (!this.isModified("password") || this.isNew) return next();
     //sometimes saving to database is slow
     // , so ... decreasing 10 second so it not to create any problem while loging in using token
@@ -112,14 +97,14 @@ userSchema.pre("save", function (next) {
 });
 
 //hide inactive users: these users are deleted
-userSchema.pre(/^find/, function (next) {
+adminSchema.pre(/^find/, function (next) {
     //this points to current query
     this.find({ active: { $ne: false } });
     next();
 });
 
 //creates a reset password token to
-userSchema.methods.createPasswordResetToken = function () {
+adminSchema.methods.createPasswordResetToken = function () {
     //we cant simply store resetToken as it is into the database due to security issues
     const resetToken = crypto.randomBytes(32).toString("hex");
 
@@ -139,5 +124,5 @@ userSchema.methods.createPasswordResetToken = function () {
     return resetToken;
 };
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin;
