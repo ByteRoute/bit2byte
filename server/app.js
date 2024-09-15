@@ -32,8 +32,8 @@ app.get("/test", async (req, res, next) => {
 
 //defining routers
 // todo: routes here
-// const routers = require("./routes/routers");
-// app.use("/api/v1/", routers);
+const routers = require("./routes/routers");
+app.use("/api/v1/", routers);
 
 //for undefined routs
 const AppError = require("./util/appError");
