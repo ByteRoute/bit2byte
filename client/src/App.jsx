@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './App.css'
+import Translator from './Component/Translator'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+    <Translator/>
         <div className="bg-green-200">Hello there</div>
         <button className="btn btn-primary">Button</button>
 
