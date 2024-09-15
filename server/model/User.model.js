@@ -5,34 +5,77 @@ const bcryptjs = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
     phone: {
-        type: String, required: [true, "Phone number is must"], unique: true
+        type: String, required: [true, "Phone number is must"], unique: true,
     }, email: {
         type: String,
-        unique: true,
-        lowercase: true,
-        required: [true, "Email is must!"],
-        validate: [validator.isEmail, "Please provide a valid email!"],
-    }, username: {
+        required: true,
+    }, firstName: {
         type: String,
-        required: [true, "A user must have a name"],
-        minLength: [5, "name too short(min=5)!"],
-        maxLength: [15, "name too long(max=25)!"],
-    }, isEmailVerified: {
-        type: Boolean, default: false,
-    }, emailVerificationOtp: {
-        type: String, select: false
+        required: true,
+
+    }, lastName: {
+        required: true,
+    },
+    isEmailVerified: {
+        type: Boolean, 
+        default: false,
+    },
+     emailVerificationOtp: {
+        type: String, 
+        select: false,
+        expires: "5m"
     }, password: {
-        type: String, required: [true, "Please create a password!"], minlength: 8, select: false, //do not select this ever
+        type: String, 
+        required:true, 
     }, passwordConfirm: {
-        type: String, required: [true, "Please confirm the password!"], validate: {
+        type: String, 
+        required: true, 
+        validate: {
             // This work on SAVE!!
             validator: function (el) {
                 return el === this.password;
-            }, message: "Passwords are not the same!",
+            }, 
+            message: "Passwords are not the same!",
         },
     }, passwordChangedAt: {
         type: Date,
-    }, passwordResetToken: String, passwordResetExpires: Number, active: Boolean
+    }, 
+    address: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: String,
+        required: true
+    },
+    aadharNumber: {
+        type: String, // You can use String to handle leading zeroes (if any)
+        required: true,
+        unique: true, // Ensures no duplicate Aadhar numbers
+        validate: {
+          validator: function(v) {
+            return /^\d{12}$/.test(v); // Regular expression to match exactly 12 digits
+          },
+          message: props => `${props.value} is not a valid Aadhar number!`
+        }
+      },
+    //   appliedScholarships: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "Scholarship",
+    //     }
+    //   ],
+    passwordResetToken: String, 
+    passwordResetExpires: Number,
+     active: Boolean
 });
 
 //before saving, encrypt the password and remove confirm password
@@ -71,7 +114,7 @@ userSchema.pre("save", function (next) {
 //hide inactive users: these users are deleted
 userSchema.pre(/^find/, function (next) {
     //this points to current query
-    this.find({active: {$ne: false}});
+    this.find({ active: { $ne: false } });
     next();
 });
 
