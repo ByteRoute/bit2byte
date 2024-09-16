@@ -63,7 +63,19 @@ const adminSchema = new mongoose.Schema({
         },
     }, passwordChangedAt: {
         type: Date,
-    }
+    },
+    approvedScholarships: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship"
+        }
+    ],
+    disapprovedScholarships: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship"
+        }
+    ]
 });
 
 //before saving, encrypt the password and remove confirm password
