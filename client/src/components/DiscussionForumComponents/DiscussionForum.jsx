@@ -27,9 +27,28 @@ const DiscussionForum = () => {
     },
   ]);
 
+  const [newQuestionText, setNewQuestionText] = useState(""); // State to manage new question input
+
+  // Function to add a new question
+  const addQuestion = () => {
+    if (newQuestionText.trim() === "") {
+      alert("Question text cannot be empty.");
+      return;
+    }
+
+    const newQuestion = {
+      id: questions.length + 1, // Generate a new id based on length
+      text: newQuestionText,
+      replies: [],
+    };
+
+    setQuestions([...questions, newQuestion]);
+    setNewQuestionText(""); // Clear the textarea after submitting
+  };
+
   // Function to add a reply to a specific question
   const addReply = (questionId, replyText) => {
-    const username = "JaTin";
+    const username = "JaTin"; // Static username for demonstration
 
     setQuestions((prevQuestions) =>
       prevQuestions.map((question) =>
@@ -55,6 +74,26 @@ const DiscussionForum = () => {
       <h1 className="text-3xl font-semibold text-blue-700 mb-6 text-center">
         Discussion Forum
       </h1>
+
+      {/* Section to Post a New Question */}
+      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-xl font-semibold text-blue-600 mb-4">
+          Post a New Question
+        </h2>
+        <textarea
+          value={newQuestionText}
+          onChange={(e) => setNewQuestionText(e.target.value)}
+          placeholder="Enter your question"
+          className="w-full p-2 border rounded mb-2"
+          rows="4"
+        ></textarea>
+        <button
+          onClick={addQuestion}
+          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        >
+          Add Question
+        </button>
+      </div>
 
       {/* Render the list of questions */}
       {questions.map((question) => (
