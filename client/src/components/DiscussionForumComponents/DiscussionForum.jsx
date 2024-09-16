@@ -5,68 +5,47 @@ const DiscussionForum = () => {
   const [questions, setQuestions] = useState([
     {
       id: 1,
-      text: "How to apply for PMSS scholarship?",
+      text: "What is React?",
       replies: [
         {
-          username: "Vivek Desai",
-          profilePicture: "https://ui-avatars.com/api/?name=Vivek+Desai",
-          text: "You can directly go on portal and login to begin your process, enter all the details and you are good to go",
-        },
-        {
-          username: "Arpit Bharadwaj",
-          profilePicture: "https://ui-avatars.com/api/?name=Vivek+Desai",
-          text: "yes I also had the same doubt, thanks for solving",
+          username: "JohnDoe",
+          profilePicture: "https://via.placeholder.com/40",
+          text: "React is a JavaScript library for building user interfaces.",
         },
       ],
     },
     {
       id: 2,
-      text: "What is the probability that i will be allocated this scholarship, I am 26 male, from UP?",
+      text: "How does useState work?",
       replies: [
         {
           username: "JaneDoe",
-          profilePicture: "https://ui-avatars.com/api/?name=John+Doe",
+          profilePicture: "https://via.placeholder.com/40",
           text: "useState is a React hook that lets you add state to functional components.",
         },
       ],
     },
   ]);
 
-  const addQuestion = (text) => {
-    // not adding if the size of text is zero
-    if (text.length == 0) return;
-    setQuestions([
-      ...questions,
-      {
-        id: questions.length + 1,
-        text,
-        replies: [],
-      },
-    ]);
-  };
-  const name = "Hariom Joshi";
+  // Function to add a reply to a specific question
   const addReply = (questionId, replyText) => {
-    const username = prompt("Enter your name:");
-    const nameArr = name.split(" ");
-    const profilePicture =
-      "https://ui-avatars.com/api/?name=" + nameArr[0] + "+" + nameArr[1];
-    if (
-      replyText.length == 0 ||
-      username.length == 0 ||
-      profilePicture.length == 0
-    )
-      return;
-    setQuestions(
-      questions.map((q) =>
-        q.id === questionId
+    const username = "JaTin";
+
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((question) =>
+        question.id === questionId
           ? {
-              ...q,
+              ...question,
               replies: [
-                ...q.replies,
-                { username, profilePicture, text: replyText },
+                ...question.replies,
+                {
+                  username,
+                  profilePicture: "https://via.placeholder.com/40",
+                  text: replyText,
+                },
               ],
             }
-          : q
+          : question
       )
     );
   };
@@ -76,17 +55,8 @@ const DiscussionForum = () => {
       <h1 className="text-3xl font-semibold text-blue-700 mb-6 text-center">
         Discussion Forum
       </h1>
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold text-blue-600 mb-4">
-          Post a New Question
-        </h2>
-        <button
-          onClick={() => addQuestion(prompt("Enter your question:"))}
-          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
-        >
-          Add Question
-        </button>
-      </div>
+
+      {/* Render the list of questions */}
       {questions.map((question) => (
         <Question key={question.id} question={question} addReply={addReply} />
       ))}
