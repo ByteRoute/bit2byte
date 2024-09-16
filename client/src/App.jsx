@@ -8,12 +8,8 @@ import { useSelector } from "react-redux";
 import FontChange from "./components/FontChange.jsx";
 import ExploreScholarships from "./pages/ExploreScholarships.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import React from "react";
 
 function App() {
-  const fontClass = useSelector((state) => state.font.fontSizeClass);
-  const count = useSelector((state) => state.counter.value);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -32,7 +28,15 @@ function App() {
         },{
           path: "login",
           element: <LoginPage/>
-        }
+        },
+        {
+          path: "scholarshipDetails",
+          element: <ScholarshipDetails />,
+        },
+        {
+          path: "discussionForum",
+          element: <DiscussionForum />,
+        },
       ],
     },
   ]);
