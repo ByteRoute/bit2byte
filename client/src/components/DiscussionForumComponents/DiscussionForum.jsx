@@ -5,18 +5,23 @@ const DiscussionForum = () => {
   const [questions, setQuestions] = useState([
     {
       id: 1,
-      text: "What is React?",
+      text: "How to apply for PMSS scholarship?",
       replies: [
         {
-          username: "JohnDoe",
-          profilePicture: "https://ui-avatars.com/api/?name=John+Doe",
-          text: "React is a JavaScript library for building user interfaces.",
+          username: "Vivek Desai",
+          profilePicture: "https://ui-avatars.com/api/?name=Vivek+Desai",
+          text: "You can directly go on portal and login to begin your process, enter all the details and you are good to go",
+        },
+        {
+          username: "Arpit Bharadwaj",
+          profilePicture: "https://ui-avatars.com/api/?name=Vivek+Desai",
+          text: "yes I also had the same doubt, thanks for solving",
         },
       ],
     },
     {
       id: 2,
-      text: "How does useState work?",
+      text: "What is the probability that i will be allocated this scholarship, I am 26 male, from UP?",
       replies: [
         {
           username: "JaneDoe",
