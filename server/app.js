@@ -39,8 +39,10 @@ const routers = require("./routes/routers");
 app.use("/api/v1/", routers);
 
 const AdminRoutes = require("./routes/Admin.js");
+const UserRoutes = require("./routes/User.js")
 
 app.use("/admin", AdminRoutes);
+app.use("/user", UserRoutes);
 //for undefined routs
 const AppError = require("./util/appError");
 app.all("*", (req, res, next) => {
