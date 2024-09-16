@@ -83,3 +83,7 @@
      - OfferLetter
      - ExperienceLetter
      - RelievingLetter
+
+## 2. Backup
+- To ensure data integrity and availability, all **critical data** must be backed up at a different location.
+- Backup location should also be secure.
