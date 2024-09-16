@@ -47,9 +47,6 @@ const UserNavbar = () => {
                     Login
                 </NavLink>
             )}
-            <NavLink to="/contactuspage" className={underlineIfActive}>
-                Contact Us
-            </NavLink>
             <NavLink to="/explore" className={underlineIfActive}>
                 Explore
             </NavLink>
@@ -57,7 +54,7 @@ const UserNavbar = () => {
     );
 
     return (
-        <div className="sticky top-0 z-50 font-montserrat w-full">
+        <div className="sticky top-0 z-10 font-montserrat w-full">
             <Disclosure
                 as="nav"
                 className="bg-blue-main p-0 text-white border-none outline-none z-20 shadow-sm relative"
@@ -189,9 +186,7 @@ const UserNavbar = () => {
                     ""
                 )}
             </div>
-            <div className="absolute top-0 translate-y-1/4 right-0 z-20 select-none">
-                <FontChange />
-            </div>
+
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {setLoginRedirect} from "../redux/auxiliarySlice.js";
 import {signup} from "../redux/apiCalls/userCalls.js";
 
@@ -161,9 +161,10 @@ function SignupPage() {
                                    placeholder="••••••••" required/>
                         </div>
 
+
                         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                            Already registered? <a href="#"
-                                                   className="text-blue-700 hover:underline dark:text-blue-500">Login</a>
+                            Already Registered? <NavLink to="/login"
+                                               className="text-blue-700 hover:underline dark:text-blue-500">Login</NavLink>
                         </div>
 
                         <span></span>

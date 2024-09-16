@@ -18,7 +18,7 @@ const LandingPage = () => {
 
 
     return (
-        <div className="flex justify-center align-middle items-center">
+        <div className="flex justify-center align-middle items-center min-h-[90dvh]">
             <div className="flex max-w-[1400px] flex-clo w-full flex-wrap justify-evenly m-4">
                 <img src="https://placehold.co/600x300"/>
                 <div className="p-4">

@@ -15,7 +15,7 @@ export const loginUser = async (dispatch, body) => {
   const id = toast.loading("Logging you in");
   try {
     // api call
-    const [err, res] = await to(request.post("/user/login", body));
+    const [err, res] = await to(request.post("/student/login", body));
     if (err) {
       toast.update(id, {
         render: `${err.response.data.message || err.response.data || "Some error occurred please try again later"}`,

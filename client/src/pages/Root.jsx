@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import UserNavbar from "../components/UserNavbar.jsx";
 import Footer from "../components/Footer.jsx";
+import FontChange from "../components/FontChange.jsx";
 
 const Root = () => {
 
