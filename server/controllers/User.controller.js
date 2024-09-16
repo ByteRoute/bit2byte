@@ -82,7 +82,16 @@ const loginUser = async (req, res) => {
   }
 };
 
+
+//Applied Scholarship
+
+const ApliedScholarship= async (req, res) => {
+
+}
+
+
 module.exports = {
   registerUser,
   loginUser,
+  ApliedScholarship
 };

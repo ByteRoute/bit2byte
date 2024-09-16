@@ -67,12 +67,12 @@ const userSchema = new mongoose.Schema({
           message: props => `${props.value} is not a valid Aadhar number!`
         }
       },
-    //   appliedScholarships: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "Scholarship",
-    //     }
-    //   ],
+      appliedScholarships: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship",
+        }
+      ],
     passwordResetToken: String, 
     passwordResetExpires: Number,
      active: Boolean
