@@ -1,5 +1,7 @@
 // controllers/adminController.js
 const User = require("../model/User.model");
+const Chat = require("../model/Chat.model")
+const Helper = require("../model/Helper.model")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const catchAsync = require("../util/catchAsync");
@@ -122,6 +124,59 @@ const logout = catchAsync(async (req, res) => {
 
 })
 
+// const sendMessage = async(req, res) => {
+//   const { userId, helperId, applicationNo, content } = req.body;
+
+//   try {
+//     // Validate user
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Validate helper
+//     const helper = await Helper.findById(helperId);
+//     if (!helper) {
+//       return res.status(404).json({ message: 'Helper not found' });
+//     }
+
+//     // Check if a chat already exists between the user and the helper
+//     let chat = await Chat.findOne({ student: userId, helper: helperId, applicationNo });
+
+//     if (!chat) {
+//       // Create a new chat if not found
+//       chat = new Chat({
+//         student: userId,
+//         helper: helperId,
+//         applicationNo,
+//         messages: []
+//       });
+//     }
+
+//     // Add the new message to the chat
+//     const newMessage = {
+//       sender: userId,
+//       senderModel: 'User',
+//       content,
+//       timestamp: Date.now()
+//     };
+
+//     chat.messages.push(newMessage);
+
+//     // Save the updated chat
+//     await chat.save();
+
+//     res.status(200).json({
+//       message: 'Message sent successfully',
+//       chat
+//     });
+
+//   } catch (error) {
+//     console.error('Error sending message:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// }
+
 module.exports = {
-    registerUser, loginUser, test, logout
+    registerUser, loginUser, test, logout, sendMessage
 };
