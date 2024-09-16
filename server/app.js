@@ -23,7 +23,7 @@ app.use(morgan("dev"));
 app.get("/", (req, res, next) => {
   res.status(200).json({
     status: "success",
-    message: "Welcome to BlackCoffer test assignment!",
+    message: "Welcome to byteRoute!",
   });
 });
 
@@ -38,18 +38,23 @@ app.get("/test", async (req, res, next) => {
 const routers = require("./routes/routers");
 app.use("/api/v1/", routers);
 
-const AdminRoutes = require("./routes/Admin.js");
+const userRoutes = require("./routes/User");
+app.use("/student", userRoutes);
 
+const Scholarship = require("./routes/Scholarship");
+
+
+const AdminRoutes = require("./routes/Admin");
 app.use("/admin", AdminRoutes);
-const ScholarshipRoute=require("./routes/Scholarship.js")
-const Scholarship=require("./routes/Scholarship.js")
 app.use("/add",Scholarship)
+
+
 //for undefined routs
 const AppError = require("./util/appError");
 app.all("*", (req, res, next) => {
   next(
     new AppError(
-      `Can't find ${req.originalUrl} on BlackCoffers test assignment server!`,
+      `Can't find ${req.originalUrl} on byteRoute server!`,
       404
     )
   );

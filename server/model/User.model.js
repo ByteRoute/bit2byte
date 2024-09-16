@@ -16,12 +16,7 @@ const userSchema = new mongoose.Schema({
     }, lastName: {
         type: String,
         required: true,
-    },
-    isUserVerified: {
-        type: Boolean, 
-        default: false,
-    },
-     emailVerificationOtp: {
+    },emailVerificationOtp: {
         type: String, 
         select: false,
         expires: 300

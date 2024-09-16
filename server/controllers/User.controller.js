@@ -2,27 +2,30 @@
 const User = require("../model/User.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const catchAsync = require("../util/catchAsync");
 
 // Register User
-const registerUser = async (req, res) => {
-  console.log("Inside register user");
+const registerUser = catchAsync(async (req, res) => {
+    console.log("Inside register user");
 
-  const { phone, email, firstName, lastName, password, passwordConfirm, address, city, state, pincode, aadharNumber } = req.body;
+    const {
+        phone, email, firstName, lastName, password, passwordConfirm, address, city, state, pincode, aadharNumber
+    } = req.body;
 
-  try {
+
     // Check if the user already exists by email or phone
-    const userExists = await User.findOne({ $or: [{ email }, { phone }, { aadharNumber }] });
+    const userExists = await User.findOne({$or: [{email}, {phone}, {aadharNumber}]});
     if (userExists) {
-      return res.status(400).json({
-        message: "User with this email or phone number already exists",
-      });
+        return res.status(400).json({
+            message: "User with this email or phone number already exists",
+        });
     }
 
     // Check if the passwords match
     if (password !== passwordConfirm) {
-      return res.status(400).json({
-        message: "Passwords do not match",
-      });
+        return res.status(400).json({
+            message: "Passwords do not match",
+        });
     }
 
     // Generate salt and hash the password
@@ -31,56 +34,45 @@ const registerUser = async (req, res) => {
 
     // Create a new user
     const user = new User({
-      firstName,
-      lastName,
-      email,
-      phone,
-      password: hashedPassword,  // Save the hashed password
-      address,
-      city,
-      state,
-      pincode,
-      aadharNumber,
+        firstName, lastName, email, phone, password: hashedPassword,  // Save the hashed password
+        address, city, state, pincode, aadharNumber,
     });
+
 
     // Save user in the database
     await user.save();
 
+    //we are using cookies to store jwt, do not send jwt in response.
+    const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "100h"});
+    const options = {
+        expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), httpOnly: true, secure: false,
+    };
+
+    res.cookie("jwt", token, options);
+
     res.status(201).json({
-      message: "User registered successfully",
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        aadharNumber: user.aadharNumber
-      },
+        status: "success", data: {user: {...(user._doc), password: undefined}}
     });
-  } catch (error) {
-    console.error("Server error", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
+
+});
 
 
-// Admin Login
-const loginUser = async (req, res) => {
-  console.log("inside user login");
-  console.log(req.body);
-  
-  
-  const { email, firstName, lastName, password } = req.body;
+const loginUser = catchAsync(async (req, res) => {
+    console.log("inside user login");
+    console.log(req.body);
 
-  try {
+
+    const {email, firstName, lastName, password} = req.body;
+
+
     // Check if the admin exists
     if (!email || !firstName || !lastName || !password) {
-      return res.status(404).json({ message: "Details are not provided" });
+        return res.status(404).json({message: "Details are not provided"});
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({email});
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({message: "User not found"});
     }
 
     // Check password
@@ -89,27 +81,47 @@ const loginUser = async (req, res) => {
     console.log(password)
 
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password" });
+        return res.status(400).json({message: "Invalid password"});
     }
 
-    // Create JWT token
-    // console.log(process.env.SECRET_KEY)
-    // const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
 
+    //we are using cookies to store jwt, do not send jwt in response.
+    const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "100h"});
+    const options = {
+        expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), httpOnly: true, secure: false,
+    };
 
+    res.cookie("jwt", token, options);
 
     res.status(200).json({
-      user,
-      message: "Login user successfully",
-      // token,
+        status: "success", data: {user: {...user._doc, password: undefined}}
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
+
+});
+
+//test function
+const test = catchAsync(async (req, res) => {
+
+    let token = req.cookies.jwt;
+
+    res.status(200).json({
+        status: 'success',
+        token
+    })
+
+});
+
+const logout = catchAsync(async (req, res) => {
+    const options = {
+        expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), httpOnly: true, secure: false,
+    }
+
+    res.cookie("jwt", "", options).json({
+        status: "success", message: "cookie deleted"
+    })
+
+})
 
 module.exports = {
-  registerUser,
-  loginUser,
+    registerUser, loginUser, test, logout
 };
