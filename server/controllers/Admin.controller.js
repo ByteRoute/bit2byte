@@ -2,7 +2,7 @@
 const Admin = require("../model/Admin.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-
+const Scholarship = require("../model/Scholarship.model");
 // Register Admin
 const registerAdmin = async (req, res) => {
   console.log("Inside register admin");
@@ -66,10 +66,10 @@ const loginAdmin = async (req, res) => {
     }
 
     // Create JWT token
-    console.log(process.env.SECRET_KEY)
-      const token = jwt.sign( { id: admin._id }, process.env.SECRET_KEY, { expiresIn: "1h" } );
-
-
+    console.log(process.env.SECRET_KEY);
+    const token = jwt.sign({ id: admin._id }, process.env.SECRET_KEY, {
+      expiresIn: "1h",
+    });
 
     res.status(200).json({
       admin,
@@ -82,7 +82,40 @@ const loginAdmin = async (req, res) => {
   }
 };
 
+//update Scholarship Status
+const updateScholarshipStatus = async (req, res) => {
+  const { approveid, disapproveid, adminId } = req.body;
+  try{const admin = await Admin.findById(adminId);
+  if (!admin) {
+    return res.status(404).json({ message: "Admin not found!" });
+  }
+
+  if (approveid && approveid.length > 0) {
+    await Scholarship.updateMany(
+      { _id: { $in: approveid } },
+      { $set: { status: "approved" } }
+    );
+    // Add approved scholarships to the admin's model
+    admin.approvedScholarships.push(...approvedIds);
+  }
+
+  if(disapproveid&&disapproveid.length>0){
+    await Scholarship.updateMany(
+      { _id: { $in: disapproveid } },
+      { $set: { status: "disapproved" } }
+    );
+    admin.disapprovedScholarships.push(...disapproveid);
+  }
+
+  await admin.save();
+  res.status(200).json({ message: "Scholarship status updated" });}
+  catch(e){
+    res.status(200).status({message:"not update the status of the scholarship"});
+  }
+};
+
 module.exports = {
   registerAdmin,
   loginAdmin,
+  updateScholarshipStatus,
 };
