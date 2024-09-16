@@ -10,9 +10,14 @@ const scholarshipSchema = new mongoose.Schema({
     required: true,
   },
   deadline: {
-    startDate: Date,
-    endDate: Date,
-    required: true,
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
+    },
   },
   requireddocuments: [
     {
@@ -54,10 +59,11 @@ const scholarshipSchema = new mongoose.Schema({
     },
   },
   status: {
-    default:'Disapproved',
-    enum:['approved','disapproved'],
-    required:true
-  }
+    type: String,
+    enum: ["approved", "disapproved", "pending"],
+    default: "pending",
+    required: true,
+  },
 });
 const Scholarship = mongoose.model("Scholarship", scholarshipSchema);
 module.exports = Scholarship;

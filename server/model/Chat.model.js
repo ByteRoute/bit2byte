@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Define the schema for individual messages
 const messageSchema = new mongoose.Schema({
   sender: {
-    type: mongoose.Schema.Types.ObjectId,  // Reference to the sender (User or Helper)
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     refPath: 'senderModel'  // Dynamic reference to either User or Helper model
   },
@@ -39,21 +39,7 @@ const chatSchema = new mongoose.Schema({
     required: true  // Store the student's application number
   },
   messages: [messageSchema],  // Array of message objects
-  createdAt: {
-    type: Date,
-    default: Date.now  // Timestamp for when the chat started
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now  // Timestamp for when the chat was last updated
-  }
-});
-
-// Update `updatedAt` automatically whenever a new message is added
-chatSchema.pre('save', function (next) {
-  this.updatedAt = Date.now();
-  next();
-});
+}, { timestamps: true });  // Automatically manage `createdAt` and `updatedAt`
 
 const Chat = mongoose.model('Chat', chatSchema);
 
