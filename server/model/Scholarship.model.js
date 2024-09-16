@@ -33,6 +33,11 @@ const scholarshipSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      category:{
+        type:String,
+         enum:['Education','Personal','Other'],
+         default:'other'
+      }
     },
   ],
   eligibility: {

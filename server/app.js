@@ -44,6 +44,8 @@ app.use("/admin", AdminRoutes);
 const ScholarshipRoute=require("./routes/Scholarship.js")
 const Scholarship=require("./routes/Scholarship.js")
 app.use("/add",Scholarship)
+const UserRoute = require("./routes/User.js")
+app.use("/user", UserRoute)
 //for undefined routs
 const AppError = require("./util/appError");
 app.all("*", (req, res, next) => {

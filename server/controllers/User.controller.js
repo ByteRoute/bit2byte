@@ -128,7 +128,7 @@ const loginUser = async (req, res) => {
 
 //Applied Scholarship
 
-const ApliedScholarship = async (req, res) => {
+const AppliedScholarship = async (req, res) => {
   console.log("inside applied scholarship");
   const {
     scholorshipId,
@@ -172,5 +172,5 @@ const ApliedScholarship = async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
-  ApliedScholarship,
+  AppliedScholarship,
 };
