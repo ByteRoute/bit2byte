@@ -1,11 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFontClass } from "../redux/fontSlice";
-import { PiStudentLight } from "react-icons/pi";
+import { changeTheme } from "../redux/ThemeSlices/themeSlice";
 import { MdTextDecrease, MdTextFormat, MdTextIncrease } from "react-icons/md";
-import { Menu } from "@headlessui/react";
-// importing the actions from counter Slice
 import { increment, decrement } from "../redux/counterSlice";
+
 const FontChange = () => {
   const getFontClassBasedOnCount = (count) => {
     if (count <= -4) return "text-xs";
@@ -23,45 +22,43 @@ const FontChange = () => {
     if (count >= 8) return "text-9xl";
   };
 
-  const count = useSelector((state) => state.counter.value); // Get count from counterSlice
+  const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
 
   const handleIncrement = (count) => {
-    dispatch(increment()); // Dispatch the increment action to counterSlice
-    console.log(count);
-    const newFontClass = getFontClassBasedOnCount(count + 1); // Calculate the new font class based on the updated count
-    console.log(newFontClass);
-    dispatch(setFontClass(newFontClass)); // Dispatch the font class to fontSlice
+    dispatch(increment());
+    const newFontClass = getFontClassBasedOnCount(count + 1);
+    dispatch(setFontClass(newFontClass));
   };
 
   const handleDecrement = (count) => {
-    dispatch(decrement()); // Dispatch the decrement action to counterSlice
-    console.log("decrementing: ");
-    const newFontClass = getFontClassBasedOnCount(count - 1); // Calculate the new font class based on the updated count
-    dispatch(setFontClass(newFontClass)); // Dispatch the font class to fontSlice
+    dispatch(decrement());
+    const newFontClass = getFontClassBasedOnCount(count - 1);
+    dispatch(setFontClass(newFontClass));
   };
-
+  const theme = useSelector((state) => state.theme.theme);
   return (
-    <div>
-      {/*//todo: here add buttons to change contrast and language, and then implement functionality of font size, contrast and language*/}
-      {/* just here for debugging purposes */}
+    <div className="flex justify-around">
+      <div className="flex items-center gap-4 text-black bg-white">
+        {/* Checkbox toggle */}
+        {theme}
+        <input
+          type="checkbox"
+          className="toggle border-blue-500 bg-blue-500 [--tglbg:gray] hover:bg-blue-700 my-2"
+          onClick={() => dispatch(changeTheme())}
+          defaultChecked
+        />
 
-      <div className="flex justify-center align-middle items-center gap-2   text-black bg-white">
-        <span>
-          <MdTextIncrease
-            className="text-2xl"
-            onClick={() => handleIncrement(count)}
-          />
-        </span>
-        <span>
-          <MdTextFormat className="text-2xl" />
-        </span>
-        <span>
-          <MdTextDecrease
-            className="text-2xl"
-            onClick={() => handleDecrement(count)}
-          />
-        </span>
+        {/* Font size controls */}
+        <MdTextDecrease
+          className="text-2xl cursor-pointer"
+          onClick={() => handleDecrement(count)}
+        />
+        <MdTextFormat className="text-2xl" />
+        <MdTextIncrease
+          className="text-2xl cursor-pointer"
+          onClick={() => handleIncrement(count)}
+        />
       </div>
     </div>
   );
