@@ -53,6 +53,11 @@ const scholarshipSchema = new mongoose.Schema({
       type: String,
     },
   },
+  status: {
+    default:'Disapproved',
+    enum:['approved','disapproved'],
+    required:true
+  }
 });
 const Scholarship = mongoose.model("Scholarship", scholarshipSchema);
 module.exports = Scholarship;
