@@ -7,6 +7,7 @@ const Application=require("../model/Application.model")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const catchAsync = require("../util/catchAsync");
+const {sendMessage} = require("./Chat.contoller");
 
 // Register User
 const registerUser = catchAsync(async (req, res) => {
@@ -161,10 +162,10 @@ const ApliedScholarship = async (req, res) => {
         });
 
     } catch (e) {
-        console.error("Error submitting application:", error);
+        console.error("Error submitting application:", e);
         return res
             .status(500)
-            .json({ message: "Error submitting application", error: error.message });
+            .json({ message: "Error submitting application", error: e.message });
     }
 };
 

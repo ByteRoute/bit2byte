@@ -5,22 +5,10 @@ const fs = require('fs');
 
 const express = require("express");
 const router = express.Router();
-const allController = require("../controllers/allController")
 
 const {generateKeys} = require("../controllers/genrateKeyController")
 const {signPdf} = require("../controllers/signController");
 const {encryptDocument, decryptDocument, uploadEncryptedFile} = require('../controllers/encryptDocumentController');
-const { route } = require('../app');
-
-// router.post("/getCreditRequests", allController.getCreditRequests);
-// router.post("/payCredit", allController.payCredit);
-
-// router.post("/getCancellationRequests", allController.getCancellationRequests);
-// router.post("/refundCancellation", allController.refundCancellation);
-
-
-
-
 
 /*
 
