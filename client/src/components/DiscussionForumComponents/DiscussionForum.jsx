@@ -9,7 +9,7 @@ const DiscussionForum = () => {
       replies: [
         {
           username: "JohnDoe",
-          profilePicture: "https://via.placeholder.com/40",
+          profilePicture: "https://ui-avatars.com/api/?name=John+Doe",
           text: "React is a JavaScript library for building user interfaces.",
         },
       ],
@@ -20,7 +20,7 @@ const DiscussionForum = () => {
       replies: [
         {
           username: "JaneDoe",
-          profilePicture: "https://via.placeholder.com/40",
+          profilePicture: "https://ui-avatars.com/api/?name=John+Doe",
           text: "useState is a React hook that lets you add state to functional components.",
         },
       ],
@@ -28,6 +28,8 @@ const DiscussionForum = () => {
   ]);
 
   const addQuestion = (text) => {
+    // not adding if the size of text is zero
+    if (text.length == 0) return;
     setQuestions([
       ...questions,
       {
@@ -37,11 +39,18 @@ const DiscussionForum = () => {
       },
     ]);
   };
-
+  const name = "Hariom Joshi";
   const addReply = (questionId, replyText) => {
     const username = prompt("Enter your name:");
-    const profilePicture = prompt("Enter your profile picture URL:");
-
+    const nameArr = name.split(" ");
+    const profilePicture =
+      "https://ui-avatars.com/api/?name=" + nameArr[0] + "+" + nameArr[1];
+    if (
+      replyText.length == 0 ||
+      username.length == 0 ||
+      profilePicture.length == 0
+    )
+      return;
     setQuestions(
       questions.map((q) =>
         q.id === questionId
