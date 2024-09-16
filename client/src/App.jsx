@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import FontChange from "./components/FontChange.jsx";
 import ExploreScholarships from "./pages/ExploreScholarships.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
+import ScholarshipApplication from "./pages/ScholarshipApplication.jsx"
 
 function App() {
   const fontClass = useSelector((state) => state.font.fontSizeClass);
@@ -27,6 +28,9 @@ function App() {
         },{
           path: "signup",
           element: <SignupPage/>
+        },{
+          path: "scholarship-application",
+          element: <ScholarshipApplication/>
         }
       ],
     },
