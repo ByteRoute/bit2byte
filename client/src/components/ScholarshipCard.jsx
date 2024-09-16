@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-function ScholarshipCard() {
-  const navigate = useNavigate();
-  console.log(scholarship);
+function ScholarshipCard({scholarship}) {
+
   return (
     <div className="card border bg-white w-[98%] m-2 shadow-inner transition-all hover:shadow-xl">
       <div className="card-body">
@@ -32,17 +31,15 @@ function ScholarshipCard() {
         </div>
 
         <div className="card-actions justify-end">
-          <button className="btn btn-outline btn-primary">
+          <Link to={"/discussionForum"} className="btn btn-outline btn-primary">
             Go to discussion form
-          </button>
-          <button
+          </Link>
+          <Link
             className="btn btn-primary"
-            onClick={() => {
-              navigate;
-            }}
+            to={`/scholarshipDetails/${scholarship._id}`}
           >
             Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>

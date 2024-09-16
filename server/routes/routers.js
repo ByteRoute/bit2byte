@@ -5,12 +5,10 @@ const fs = require('fs');
 
 const express = require("express");
 const router = express.Router();
-const allController = require("../controllers/allController")
 
 const {generateKeys} = require("../controllers/genrateKeyController")
 const {signPdf} = require("../controllers/signController");
 const {encryptDocument, decryptDocument, uploadEncryptedFile} = require('../controllers/encryptDocumentController');
-const { route } = require('../app');
 const { ocr } = require('../controllers/autoFillDocumentsController');
 
 // router.post("/getCreditRequests", allController.getCreditRequests);

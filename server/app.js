@@ -52,7 +52,9 @@ const Scholarship = require("./routes/Scholarship");
 const AdminRoutes = require("./routes/Admin");
 app.use("/admin", AdminRoutes);
 const ScholarshipRoute=require("./routes/Scholarship.js")
-app.use("/add",Scholarship)
+
+app.use("/scholarship",Scholarship)
+
 const ChatRoutes = require("./routes/Chat.js")
 app.use("/chat", ChatRoutes)
 //for undefined routs
