@@ -204,3 +204,6 @@ benchmarks/graphs
 config.env
 *.env
 */config.env
+
+*/private.pem
+*/public.pem
