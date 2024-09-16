@@ -30,6 +30,11 @@ app.get("/test", async (req, res, next) => {
     });
 });
 
+// cloudinary connection
+require("./config/cloudinary").cloudinaryConnect();
+
+const cloudinary = require("cloudinary").v2;
+
 //defining routers
 // todo: routes here
 const routers = require("./routes/routers");
