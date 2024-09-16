@@ -11,6 +11,7 @@ const {generateKeys} = require("../controllers/genrateKeyController")
 const {signPdf} = require("../controllers/signController");
 const {encryptDocument, decryptDocument, uploadEncryptedFile} = require('../controllers/encryptDocumentController');
 const { route } = require('../app');
+const { ocr } = require('../controllers/autoFillDocumentsController');
 
 // router.post("/getCreditRequests", allController.getCreditRequests);
 // router.post("/payCredit", allController.payCredit);
@@ -29,7 +30,7 @@ BELOW routes are only to test their respective controllers.
 To do:
     - Separate this into a different controller
     - Change absolute paths to relative paths
-    
+
 */
 
 router.get("/hi", // Example
@@ -42,6 +43,8 @@ router.get("/hi", // Example
     })
 }
 );
+
+router.get("/testOcr", ocr);
 
 router.get("/testEncryption", () => {
     const filePath = '/Users/rathore/Documents/GitHub/bit2byte/server/routes/document.pdf';
