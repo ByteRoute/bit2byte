@@ -34,7 +34,7 @@ const UserNavbar = () => {
 
   const links = (
     <>
-      <NavLink to="/home" className={underlineIfActive}>
+      <NavLink to="" className={underlineIfActive}>
         Home
       </NavLink>
       {!user && (
@@ -49,6 +49,9 @@ const UserNavbar = () => {
       )}
       <NavLink to="/contactuspage" className={underlineIfActive}>
         Contact Us
+      </NavLink>
+      <NavLink to="/explore" className={underlineIfActive}>
+        Explore
       </NavLink>
     </>
   );

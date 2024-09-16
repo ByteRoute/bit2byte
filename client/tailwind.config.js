@@ -21,7 +21,8 @@ export default {
     },
     plugins: [
         require('daisyui'),
-        require('flowbite/plugin')
+        require('flowbite/plugin'),
+        require('@tailwindcss/line-clamp'),
     ], daisyui: {
         themes: ["light"],
     },
