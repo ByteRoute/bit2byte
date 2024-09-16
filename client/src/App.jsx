@@ -6,6 +6,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import { useSelector } from "react-redux";
 import FontChange from "./components/FontChange.jsx";
+import TimeLine from "./components/TimeLine.jsx";
 
 function App() {
   const fontClass = useSelector((state) => state.font.fontSizeClass);
@@ -31,6 +32,7 @@ function App() {
       {/*following div is just for class font purpose, everything must be inside this div,
        if you want to reflect the font changes in your component*/}
       {/* {count} */}
+      <TimeLine currentStage={3} failed={false} />
       <FontChange />
       <div className={fontClass}>
         <ToastContainer

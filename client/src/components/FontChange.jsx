@@ -44,9 +44,8 @@ const FontChange = () => {
         {theme}
         <input
           type="checkbox"
-          className="toggle border-blue-500 bg-blue-500 [--tglbg:gray] hover:bg-blue-700 my-2"
+          className="toggle border-blue-500 bg-white [--tglbg:gray] my-2"
           onClick={() => dispatch(changeTheme())}
-          defaultChecked
         />
 
         {/* Font size controls */}
