@@ -27,32 +27,25 @@ const DiscussionForum = () => {
     },
   ]);
 
-  const addQuestion = (text) => {
-    setQuestions([
-      ...questions,
-      {
-        id: questions.length + 1,
-        text,
-        replies: [],
-      },
-    ]);
-  };
-
+  // Function to add a reply to a specific question
   const addReply = (questionId, replyText) => {
-    const username = prompt("Enter your name:");
-    const profilePicture = prompt("Enter your profile picture URL:");
+    const username = "JaTin";
 
-    setQuestions(
-      questions.map((q) =>
-        q.id === questionId
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((question) =>
+        question.id === questionId
           ? {
-              ...q,
+              ...question,
               replies: [
-                ...q.replies,
-                { username, profilePicture, text: replyText },
+                ...question.replies,
+                {
+                  username,
+                  profilePicture: "https://via.placeholder.com/40",
+                  text: replyText,
+                },
               ],
             }
-          : q
+          : question
       )
     );
   };
@@ -62,17 +55,8 @@ const DiscussionForum = () => {
       <h1 className="text-3xl font-semibold text-blue-700 mb-6 text-center">
         Discussion Forum
       </h1>
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold text-blue-600 mb-4">
-          Post a New Question
-        </h2>
-        <button
-          onClick={() => addQuestion(prompt("Enter your question:"))}
-          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
-        >
-          Add Question
-        </button>
-      </div>
+
+      {/* Render the list of questions */}
       {questions.map((question) => (
         <Question key={question.id} question={question} addReply={addReply} />
       ))}
