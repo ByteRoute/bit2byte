@@ -41,6 +41,9 @@ app.use("/api/v1/", routers);
 const AdminRoutes = require("./routes/Admin.js");
 
 app.use("/admin", AdminRoutes);
+const ScholarshipRoute=require("./routes/Scholarship.js")
+const Scholarship=require("./routes/Scholarship.js")
+app.use("/add",Scholarship)
 //for undefined routs
 const AppError = require("./util/appError");
 app.all("*", (req, res, next) => {

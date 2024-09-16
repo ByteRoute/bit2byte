@@ -14,7 +14,7 @@ const bcryptjs = require("bcryptjs");
 
 const adminSchema = new mongoose.Schema({
     phone: {
-        type: String, 
+        type: Number, 
         required: [true, "Phone number is must"], 
         unique: true,
     }, email: {
@@ -63,7 +63,19 @@ const adminSchema = new mongoose.Schema({
         },
     }, passwordChangedAt: {
         type: Date,
-    }
+    },
+    approvedScholarships: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship"
+        }
+    ],
+    disapprovedScholarships: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Scholarship"
+        }
+    ]
 });
 
 //before saving, encrypt the password and remove confirm password

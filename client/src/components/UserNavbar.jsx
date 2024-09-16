@@ -9,7 +9,7 @@ import FontChange from "./FontChange.jsx";
 
 const UserNavbar = () => {
   // const user = useSelector((state) => state.user.user);
-  const user = true; // just temporarily for seeing how the user screen looks;
+  const user = false; // just temporarily for seeing how the user screen looks;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const UserNavbar = () => {
 
   const links = (
     <>
-      <NavLink to="/home" className={underlineIfActive}>
+      <NavLink to="" className={underlineIfActive}>
         Home
       </NavLink>
       {!user && (
@@ -50,21 +50,24 @@ const UserNavbar = () => {
       <NavLink to="/contactuspage" className={underlineIfActive}>
         Contact Us
       </NavLink>
+      <NavLink to="/explore" className={underlineIfActive}>
+        Explore
+      </NavLink>
     </>
   );
 
   return (
-    <div className=" sticky top-0 z-50 font-montserrat">
+    <div className="sticky top-0 z-50 font-montserrat w-full overflow-hidden">
       <Disclosure
         as="nav"
-        className={`bg-black  p-0 text-white border-none outline-none z-20 shadow-sm border relative `}
+        className="bg-blue-main p-0 text-white border-none outline-none z-20 shadow-sm relative"
       >
         {({ open }) => (
           <div className="relative">
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
+            <div className="mx-auto max-w-7xl px-2 w-full">
               <div className="navbar min-h-6 pt-0">
                 <div className="navbar-start">
-                  <div className="navbar-start  lg:hidden">
+                  <div className="navbar-start lg:hidden">
                     <div className="dropdown">
                       <div
                         tabIndex={0}
@@ -88,14 +91,14 @@ const UserNavbar = () => {
                       </div>
                       <div
                         tabIndex={0}
-                        className="menu menu-sm *:p-1 *:border-1 *:shadow-sm *:border-white bg-slate-900 *:rounded-md *:bg-slate-800 *:m-1 dropdown-content mt-3 z-[1] p-2 shadow rounded-md w-52"
+                        className="menu menu-sm p-1 border-1 shadow-sm border-white bg-slate-900 rounded-md m-1 dropdown-content mt-3 z-[1] p-2 shadow rounded-md w-52"
                       >
                         {links}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-row-reverse lg:flex-row flex-1 ">
+                  <div className="flex flex-row-reverse lg:flex-row flex-1">
                     <NavLink
                       to="/"
                       className="flex relative items-center translate-x-full lg:translate-x-0"
@@ -107,7 +110,7 @@ const UserNavbar = () => {
                 <div className="navbar-center hidden lg:flex">
                   <div className="flex flex-row-reverse flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                     <div className="hidden sm:ml-6 sm:block">
-                      <div className="flex space-x-4 ">{links}</div>
+                      <div className="flex space-x-4">{links}</div>
                     </div>
                   </div>
                 </div>
@@ -120,7 +123,6 @@ const UserNavbar = () => {
                           <span className="sr-only">Open user menu</span>
                           <PiStudentLight size={24} className="text-black" />
                         </Menu.Button>
-                        {/* <FontChange /> */}
                         <Transition
                           as={Fragment}
                           enter="transition ease-out duration-100"
@@ -168,7 +170,7 @@ const UserNavbar = () => {
             </div>
 
             <Disclosure.Panel className="sm:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2 bg *:p-2 *:bold *:block">
+              <div className="space-y-1 px-2 pb-3 pt-2">
                 <NavLink to="/">Home</NavLink>
                 {!user && <NavLink to="/signup">Signup</NavLink>}
                 {!user && <NavLink to="/login">Login</NavLink>}
@@ -177,10 +179,10 @@ const UserNavbar = () => {
           </div>
         )}
       </Disclosure>
-      <div className="h-1 w-screen relative">
+      <div className="h-1 w-full relative">
         {navigation.state === "loading" ? (
           <progress
-            className="progress progress-primary absolute h-[5px] border-b-2 border-black bg-stone-700 outline-b-2 outline-black"
+            className="progress progress-primary absolute h-[5px] border-b-2 border-black bg-stone-700"
             style={{ "--progress-color": "#FACA15" }}
           ></progress>
         ) : (
