@@ -7,5 +7,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/test',test);
 router.post('/logout',logout);
+router.post('/login',loginUser)
+router.post('/Submited_application',ApliedScholarship)
 
 module.exports = router;

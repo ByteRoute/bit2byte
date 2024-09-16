@@ -1,7 +1,9 @@
 // controllers/adminController.js
 const User = require("../model/User.model");
-const Chat = require("../model/Chat.model")
-const Helper = require("../model/Helper.model")
+const Chat = require("../model/Chat.model");
+const Helper = require("../model/Helper.model");
+const Scholarship = require("../model/Scholarship.model");
+const Application=require("../model/Application.model")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const catchAsync = require("../util/catchAsync");
@@ -79,8 +81,6 @@ const loginUser = catchAsync(async (req, res) => {
 
     // Check password
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(user.password)
-    console.log(password)
 
     if (!isMatch) {
         return res.status(400).json({message: "Invalid password"});
@@ -123,6 +123,51 @@ const logout = catchAsync(async (req, res) => {
     })
 
 })
+
+
+//Applied Scholarship
+
+const ApliedScholarship = async (req, res) => {
+    console.log("inside applied scholarship");
+    const {
+        scholorshipId,
+        studentId,
+        status,
+        dateApplied,
+        data,
+        timeline,
+        chatId,
+    } = req.body;
+    try {
+        const user = await User.findById(studentId);
+        const scholarship = await Scholarship.findById(scholorshipId);
+        if (!user || !scholarship) {
+            return res.status(404).json({ message: "User or scholarship not found" });
+        }
+
+        const newApplication= new Application({
+            scholorshipId,
+            studentId,
+            status,
+            dateApplied,
+            data,
+            timeline,
+            chatId
+        })
+
+        await newApplication.save();
+        return res.send(200).json({ message: "Application submitted successfully",
+            newApplication
+        });
+
+    } catch (e) {
+        console.error("Error submitting application:", error);
+        return res
+            .status(500)
+            .json({ message: "Error submitting application", error: error.message });
+    }
+};
+
 
 // const sendMessage = async(req, res) => {
 //   const { userId, helperId, applicationNo, content } = req.body;
@@ -178,5 +223,5 @@ const logout = catchAsync(async (req, res) => {
 // }
 
 module.exports = {
-    registerUser, loginUser, test, logout, sendMessage
+    registerUser, loginUser, test, logout, sendMessage, ApliedScholarship
 };
