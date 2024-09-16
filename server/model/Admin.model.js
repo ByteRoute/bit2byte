@@ -14,7 +14,7 @@ const bcryptjs = require("bcryptjs");
 
 const adminSchema = new mongoose.Schema({
     phone: {
-        type: String, 
+        type: Number, 
         required: [true, "Phone number is must"], 
         unique: true,
     }, email: {
