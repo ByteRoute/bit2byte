@@ -5,6 +5,6 @@ const router = express.Router();
 // Register admin route
 router.post('/register', registerAdmin);
 router.post('/login',loginAdmin);
-router.post('update',updateScholarshipStatus)
+router.post('/update',updateScholarshipStatus)
 
 module.exports = router;

@@ -8,8 +8,8 @@ import { PiStudentLight } from "react-icons/pi";
 import FontChange from "./FontChange.jsx";
 
 const UserNavbar = () => {
-    // const user = useSelector((state) => state.user.user);
-    const user = false; // just temporarily for seeing how the user screen looks;
+    const user = useSelector((state) => state.persistedReducer.user.user);
+    // const user = false; // just temporarily for seeing how the user screen looks;
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -47,9 +47,6 @@ const UserNavbar = () => {
                     Login
                 </NavLink>
             )}
-            <NavLink to="/contactuspage" className={underlineIfActive}>
-                Contact Us
-            </NavLink>
             <NavLink to="/explore" className={underlineIfActive}>
                 Explore
             </NavLink>
@@ -57,7 +54,7 @@ const UserNavbar = () => {
     );
 
     return (
-        <div className="sticky top-0 z-50 font-montserrat w-full overflow-hidden">
+        <div className="sticky top-0 z-10 font-montserrat w-full">
             <Disclosure
                 as="nav"
                 className="bg-blue-main p-0 text-white border-none outline-none z-20 shadow-sm relative"
@@ -189,9 +186,7 @@ const UserNavbar = () => {
                     ""
                 )}
             </div>
-            <div className="absolute top-0 translate-y-1/4 right-0 z-20 select-none">
-                <FontChange />
-            </div>
+
         </div>
     );
 };
